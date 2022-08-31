@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { HUY_GHE } from "../../redux/types/tiketBookingType";
 
-export default class ThongTinDatGhe extends Component {
+class ThongTinDatGhe extends Component {
   render() {
     return (
       <div className="mt-5">
@@ -30,21 +32,53 @@ export default class ThongTinDatGhe extends Component {
                 <th></th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th>Số ghế</th>
-                <th>Giá</th>
-                <th></th>
-              </tr>
-              <tr>
-                <th>Số ghế</th>
-                <th>Giá</th>
-                <th></th>
-              </tr>
+            <tbody className="text-warning">
+              {this.props.danhSachGheDangDat.map((gheDangDat, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{gheDangDat.soGhe}</td>
+                    <td>{gheDangDat.gia.toLocaleString()}</td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          const action = {
+                            type: HUY_GHE,
+                            payload: {
+                              soGhe: gheDangDat.soGhe,
+                            },
+                          };
+                          this.props.dispatch(action);
+                        }}
+                      >
+                        Hủy
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
+            <tfoot>
+              <tr className="text-warning">
+                <td>Tổng tiền</td>
+                <td>
+                  {this.props.danhSachGheDangDat
+                    .reduce((tongTien, gheDangDat, index) => {
+                      return (tongTien += gheDangDat.gia);
+                    }, 0)
+                    .toLocaleString()}
+                </td>
+                <td></td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  danhSachGheDangDat: state.ticketBookingReducer.danhSachGheDangDat,
+});
+
+export default connect(mapStateToProps)(ThongTinDatGhe);

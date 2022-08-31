@@ -8,8 +8,8 @@ export default class TicketBooking extends Component {
   renderHangGhe = () => {
     return danhSachGheData.map((hangGhe, index) => {
       return (
-        <div key={index}>
-          <HangGhe hangGhe={hangGhe}/>
+        <div key={index} >
+          <HangGhe hangGhe={hangGhe} soHangGhe={index}/>
 
         </div>
       )
@@ -51,13 +51,14 @@ export default class TicketBooking extends Component {
                   className="mt-2"
                   style={{
                     display: "flex",
-                    flexDirection: "row",
+                    flexDirection: "column",
                     justifyContent: "center",
                   }}
                 >
                   <div className="screen"></div>
-                </div>
                 {this.renderHangGhe()}
+
+                </div>
               </div>
               <div className="col-4">
                 <div style={{ fontSize: "35px" }} className="text-light mt-2">

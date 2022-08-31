@@ -1,10 +1,12 @@
 import { combineReducers, createStore } from "redux";
-import {formReducer} from "./reducers/formReducer"
+import {formReducer} from "./reducers/formReducer";
+import {ticketBookingReducer} from "./reducers/ticketBookingReducer";
 
 
 //rootReducer: state tổng của ứng dụng
 const rootReducer = combineReducers({
   formReducer:formReducer,
+  ticketBookingReducer:ticketBookingReducer
    
   });
   
@@ -12,4 +14,3 @@ const rootReducer = combineReducers({
     rootReducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
-  
